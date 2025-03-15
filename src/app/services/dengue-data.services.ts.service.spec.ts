@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DengueDataServicesTsService } from './dengue-data.services.ts.service';
+import { DengueDataService } from './dengue-data.services.ts.service';
 
-describe('DengueDataServicesTsService', () => {
-  let service: DengueDataServicesTsService;
+describe('DengueDataService', () => {
+  let service: DengueDataService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DengueDataServicesTsService);
+    service = TestBed.inject(DengueDataService);
   });
 
   it('should be created', () => {

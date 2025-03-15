@@ -36,10 +36,12 @@
   display: flex;
   justify-content: space-between;
   gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .option-card {
   flex: 1;
+  min-width: 250px;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -47,6 +49,7 @@
   text-align: center;
   transition: all 0.3s ease;
   cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .option-card:hover {
@@ -80,4 +83,191 @@
 
 .info-source a:hover {
   text-decoration: underline;
+}
+
+.data-view {
+  animation: fadeIn 0.5s;
+}
+
+.view-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.back-button {
+  background-color: #1565c0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #0d47a1;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table.mat-table {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+th.mat-header-cell {
+  background-color: #f3f3f3;
+  color: #333;
+  font-weight: bold;
+  text-align: left;
+  padding: 1rem;
+}
+
+td.mat-cell {
+  padding: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: space-around;
+}
+
+.data-card {
+  flex: 0 0 calc(33.333% - 1.5rem);
+  min-width: 280px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.data-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.card-content {
+  padding: 1.5rem;
+}
+
+.card-stat {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-stat:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.stat-label {
+  color: #666;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* Estilos para níveis de risco */
+.alert-level-1 { color: #4CAF50; }
+.alert-level-2 { color: #FF9800; }
+.alert-level-3 { color: #F44336; }
+.alert-level-4 { color: #9C27B0; }
+
+.alert-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.alert-badge.alert-level-1 {
+  background-color: #E8F5E9;
+  color: #4CAF50;
+}
+
+.alert-badge.alert-level-2 {
+  background-color: #FFF3E0;
+  color: #FF9800;
+}
+
+.alert-badge.alert-level-3 {
+  background-color: #FFEBEE;
+  color: #F44336;
+}
+
+.alert-badge.alert-level-4 {
+  background-color: #F3E5F5;
+  color: #9C27B0;
+}
+
+.chart-container {
+  width: 100%;
+  min-height: 400px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: #fff;
+}
+
+.chart-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  text-align: center;
+  padding: 1rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .options-container {
+    flex-direction: column;
+  }
+
+  .option-card {
+    margin-bottom: 1rem;
+  }
+
+  .data-card {
+    flex: 0 0 100%;
+  }
 }
