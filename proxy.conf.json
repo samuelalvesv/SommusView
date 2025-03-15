@@ -1,0 +1,8 @@
+{
+  "/AlertDengue": {
+    "target": "http://localhost:5079",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

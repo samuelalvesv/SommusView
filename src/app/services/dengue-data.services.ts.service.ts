@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DengueDataService {
-  private baseUrl = 'http://localhost:5079/AlertDengue';
+  private baseUrl = '/AlertDengue';
 
   constructor(private http: HttpClient) { }
 
