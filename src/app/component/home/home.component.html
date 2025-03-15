@@ -1,0 +1,48 @@
+<div class="container">
+  <header class="header">
+    <h1>Alerta Dengue - Belo Horizonte, MG</h1>
+    <p class="subtitle">Sistema de monitoramento epidemiológico das últimas 3 semanas</p>
+  </header>
+
+  <section class="description">
+    <h2>Sobre os dados</h2>
+    <p>
+      Esta aplicação apresenta dados sobre casos de dengue em Belo Horizonte nas últimas 3 semanas epidemiológicas.
+      São exibidas informações sobre semana epidemiológica, número de casos estimados, casos notificados e nível de alerta.
+    </p>
+
+    <div class="info-source">
+      <h3>Fonte de dados: InfoDengue</h3>
+      <p>
+        Os dados são provenientes do <a href="https://info.dengue.mat.br" target="_blank">info.dengue.mat.br</a>, um sistema
+        de alerta para arboviroses que integra dados da web social, climáticos e epidemiológicos.
+      </p>
+      <p>
+        Desenvolvido em 2015 por pesquisadores da Fiocruz e FGV, com colaboração da Secretaria Municipal de
+        Saúde do Rio de Janeiro, Observatório da Dengue/UFMG e universidades parceiras, o sistema ganhou
+        abrangência nacional em 2021 com apoio do Ministério da Saúde.
+      </p>
+    </div>
+  </section>
+
+  <section class="view-options">
+    <h2>Escolha como visualizar os dados:</h2>
+
+    <div class="options-container">
+      <div class="option-card" (click)="navigateToView('tabela')">
+        <h3>Tabela</h3>
+        <p>Visualize os dados em formato tabular, organizado por semana epidemiológica.</p>
+      </div>
+
+      <div class="option-card" (click)="navigateToView('grafico')">
+        <h3>Gráfico</h3>
+        <p>Acompanhe a evolução dos casos através de gráficos interativos.</p>
+      </div>
+
+      <div class="option-card" (click)="navigateToView('cards')">
+        <h3>Cards</h3>
+        <p>Visualize os dados em cards individuais para cada semana epidemiológica.</p>
+      </div>
+    </div>
+  </section>
+</div>
