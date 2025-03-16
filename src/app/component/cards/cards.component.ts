@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { DengueData, DengueDataStateService } from '../../services/dengue-data-state.service';
-import { Subscription } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-cards',
@@ -11,28 +11,20 @@ import { Subscription } from 'rxjs';
   templateUrl: './cards.component.html',
   styleUrl: './cards.component.css'
 })
-export class CardsComponent implements OnInit, OnDestroy {
-  dengueData: DengueData[] = [];
-  private subscription: Subscription = new Subscription();
+export class CardsComponent {
+  dengueData$: Observable<DengueData[]>;
 
   constructor(
     private dengueDataStateService: DengueDataStateService,
     private router: Router
-  ) {}
-
-  ngOnInit(): void {
-    this.subscription.add(
-      this.dengueDataStateService.dengueData$.subscribe(data => {
+  ) {
+    this.dengueData$ = this.dengueDataStateService.dengueData$.pipe(
+      tap(data => {
         if (data.length === 0) {
           this.dengueDataStateService.loadData();
         }
-        this.dengueData = data;
       })
     );
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   backToHome(): void {

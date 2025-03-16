@@ -1,9 +1,9 @@
-import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { DengueData, DengueDataStateService } from '../../services/dengue-data-state.service';
 import { Chart, registerables } from 'chart.js';
-import { Subscription } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 Chart.register(...registerables);
 
@@ -14,50 +14,43 @@ Chart.register(...registerables);
   templateUrl: './grafico.component.html',
   styleUrl: './grafico.component.css'
 })
-export class GraficoComponent implements OnInit, AfterViewInit, OnDestroy {
-  dengueData: DengueData[] = [];
+export class GraficoComponent implements AfterViewInit {
+  dengueData$: Observable<DengueData[]>;
   chart: any;
-  private subscription: Subscription = new Subscription();
 
   @ViewChild('barChart') barChart!: ElementRef;
 
   constructor(
     private dengueDataStateService: DengueDataStateService,
     private router: Router
-  ) {}
-
-  ngOnInit(): void {
-    this.subscription.add(
-      this.dengueDataStateService.dengueData$.subscribe(data => {
+  ) {
+    this.dengueData$ = this.dengueDataStateService.dengueData$.pipe(
+      tap(data => {
         if (data.length === 0) {
           this.dengueDataStateService.loadData();
-        }
-        this.dengueData = data;
-
-        if (this.chart && this.dengueData.length > 0) {
-          this.updateChart();
+        } else if (this.barChart && !this.chart) {
+          this.createChart(data);
+        } else if (this.chart) {
+          this.updateChart(data);
         }
       })
     );
   }
 
   ngAfterViewInit(): void {
-    if (this.dengueData.length > 0) {
-      this.createChart();
-    }
+    this.dengueData$.subscribe(data => {
+      if (data.length > 0 && !this.chart) {
+        this.createChart(data);
+      }
+    });
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-    if (this.chart) {
-      this.chart.destroy();
-    }
-  }
+  createChart(data: DengueData[]): void {
+    if (!this.barChart) return;
 
-  createChart(): void {
     const ctx = this.barChart.nativeElement.getContext('2d');
 
-    const sortedData = [...this.dengueData].sort((a, b) =>
+    const sortedData = [...data].sort((a, b) =>
       a.semanaEpidemiologica.localeCompare(b.semanaEpidemiologica)
     );
 
@@ -117,13 +110,13 @@ export class GraficoComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  updateChart(): void {
+  updateChart(data: DengueData[]): void {
     if (!this.chart) {
-      this.createChart();
+      this.createChart(data);
       return;
     }
 
-    const sortedData = [...this.dengueData].sort((a, b) =>
+    const sortedData = [...data].sort((a, b) =>
       a.semanaEpidemiologica.localeCompare(b.semanaEpidemiologica)
     );
 

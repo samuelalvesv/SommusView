@@ -40,6 +40,14 @@ table.mat-table {
   margin-bottom: 1rem;
 }
 
+::ng-deep .mat-mdc-table {
+  background-color: white !important;
+}
+
+::ng-deep .mat-mdc-paginator {
+  background-color: white !important;
+}
+
 th.mat-header-cell {
   background-color: #f3f3f3;
   color: #333;

@@ -4,9 +4,11 @@
     <button class="back-button" (click)="backToHome()">Voltar</button>
   </header>
 
-  <div class="chart-container">
-    <canvas #barChart></canvas>
-  </div>
+  @if (dengueData$ | async;) {
+    <div class="chart-container">
+      <canvas #barChart></canvas>
+    </div>
+  }
 
   <div class="chart-info">
     <p>O gráfico apresenta o comparativo entre casos estimados e notificados de dengue nas últimas 3 semanas epidemiológicas em Belo Horizonte.</p>
