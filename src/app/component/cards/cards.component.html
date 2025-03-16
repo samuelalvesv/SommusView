@@ -1,0 +1,25 @@
+<div class="container">
+  <header class="view-header">
+    <h2>Cards da Dengue - Últimas 3 Semanas</h2>
+    <button class="back-button" (click)="backToHome()">Voltar</button>
+  </header>
+
+  <div class="cards-container">
+    <div *ngFor="let item of dengueData" class="data-card">
+      <div class="card-header">
+        <h3>Semana {{item.semanaEpidemiologica}}</h3>
+        <span class="alert-badge alert-level-{{item.nivelRisco}}">Risco Nível {{item.nivelRisco}}</span>
+      </div>
+      <div class="card-content">
+        <div class="card-stat">
+          <span class="stat-label">Casos Estimados</span>
+          <span class="stat-value">{{item.casosEstimados}}</span>
+        </div>
+        <div class="card-stat">
+          <span class="stat-label">Casos Notificados</span>
+          <span class="stat-value">{{item.casosNotificados}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
