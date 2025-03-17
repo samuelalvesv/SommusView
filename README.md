@@ -1,59 +1,126 @@
-# SommusView
+# SommusView - Sistema de Visualização de Monitoramento de Dengue
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
+## Descrição
 
-## Development server
+Interface web desenvolvida como parte do projeto Sommus, fornecendo visualização interativa para dados de monitoramento de dengue em Belo Horizonte - MG. Este frontend consome a API RESTful do projeto SommusProject backend e apresenta os dados das últimas 3 semanas epidemiológicas em diferentes formatos.
 
-To start a local development server, run:
+## Tecnologias Utilizadas
 
-```bash
-ng serve
+- **Framework**: Angular 19+ (Standalone Components)
+- **Linguagem**: TypeScript
+- **Gerenciador de Pacotes**: npm
+- **UI/UX**: Angular Material
+- **Gráficos**: Chart.js
+- **Gerenciamento de Estado**: RxJS
+- **Manipulação de Datas**: date-fns
+- **Estilização**: CSS
+
+## Requisitos de Sistema
+
+- Node.js 16.x ou superior
+- npm 8.x ou superior
+- Conexão com internet (para comunicação com a API backend)
+- Navegador moderno (Chrome, Firefox, Edge, Safari)
+
+## Estrutura do Projeto
+
+O projeto segue a arquitetura de componentes standalone do Angular:
+
+### Componentes
+
+- **home**: Página inicial com opções de visualização
+- **tabela**: Exibição dos dados em formato tabular com paginação e ordenação
+- **grafico**: Visualização gráfica comparativa usando Chart.js
+- **cards**: Exibição em formato de cards individuais
+
+### Serviços
+
+- **dengue-data.service.ts**: Comunicação com a API backend
+- **dengue-data-state.service.ts**: Gerenciamento do estado da aplicação usando BehaviorSubject
+
+### Modelos
+
+- **DengueData**: Interface que representa os dados de alerta de dengue
+  - semanaEpidemiologica: string
+  - casosEstimados: number
+  - casosNotificados: number
+  - nivelRisco: number
+
+## Principais Funcionalidades
+
+### Página Inicial
+
+- Apresentação do sistema e sua finalidade
+- Informações sobre a fonte dos dados (InfoDengue)
+- Seleção da forma de visualização (tabela, gráfico ou cards)
+
+### Tabela
+
+- Exibição tabular com recursos avançados:
+  - Ordenação por qualquer coluna
+  - Paginação automática
+  - Filtragem de dados
+
+### Gráfico
+
+- Visualização em gráfico de barras comparativo:
+  - Casos estimados vs. casos notificados
+  - Organização por semana epidemiológica
+  - Gráficos responsivos e interativos
+
+### Cards
+
+- Visualização em formato de cards individuais por semana epidemiológica
+
+## Integração com Backend
+
+O frontend se conecta ao backend SommusProject através do endpoint:
+
+- `GET /AlertDengue/GetByWeek?ew={semana}&ey={ano}`: Consulta dados por semana epidemiológica
+
+O sistema automaticamente busca os dados das últimas 3 semanas epidemiológicas no momento do carregamento.
+
+## Configuração e Instalação
+
+1. Clone o repositório:
+```
+git clone https://github.com/seu-usuario/SommusView.git
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+2. Navegue até a pasta do projeto:
+```
+cd SommusView
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
+3. Instale as dependências:
+```
+npm install
 ```
 
-## Building
+4. Configure a URL da API no arquivo de ambiente apropriado.
 
-To build the project run:
+## Executando o Projeto
 
-```bash
-ng build
+1. Para desenvolvimento local:
+```
+ng serve --port 4200
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+2. Acesse a aplicação em:
+```
+http://localhost:4200
 ```
 
-## Running end-to-end tests
+## Fluxo de Dados
 
-For end-to-end (e2e) testing, run:
+1. O serviço `DengueDataStateService` calcula as últimas 3 semanas epidemiológicas
+2. Para cada semana, uma requisição é feita ao backend através de `DengueDataService`
+3. Os dados recebidos são processados e transformados para o formato adequado
+4. Os dados são armazenados em um `BehaviorSubject` para disponibilidade em toda aplicação
+5. Os componentes de visualização inscrevem-se no Observable e exibem os dados
 
-```bash
-ng e2e
-```
+## Considerações Finais
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+O SommusView complementa o projeto backend SommusProject, fornecendo uma interface intuitiva para visualização dos dados de monitoramento de dengue. A aplicação oferece múltiplas formas de visualização, permitindo análises mais eficientes da situação epidemiológica em Belo Horizonte.
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Este projeto segue boas práticas de desenvolvimento Angular, como componentização, gerenciamento de estado centralizado e desacoplamento entre camadas.
